@@ -1,6 +1,11 @@
 import random
 import hashlib
+import string
 
+# Global Variables for characters' strings
+UC_STR = string.ascii_uppercase
+LC_STR = string.ascii_lowercase
+D_STR = string.digits
 
 def generate_randomiser(NAME: str, SITE: str, MASTER_KEY, PASS_LEN: int) -> str:
     """
@@ -19,15 +24,15 @@ def generate_randomiser(NAME: str, SITE: str, MASTER_KEY, PASS_LEN: int) -> str:
     random.seed(init_string)
 
     # Step 2: Create new string based on seed and salted digits
-    mid = str(random.randint(0, 9))
-    new_string = mid + SITE + mid + NAME + mid + MASTER_KEY + mid
+    salt_str = random.choice(UC_STR) + random.choice(D_STR) + random.choice(LC_STR)
+    new_string = salt_str + SITE + salt_str + NAME + salt_str + MASTER_KEY + salt_str
 
     # Step 3: Return trimmed hex string of generated hash
     return hashlib.sha3_256(new_string.encode()).hexdigest()[:PASS_LEN]
 
 
 def generate_password(
-    NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int = 16, INC_SP: bool = False
+    NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int = 16, INC_SPC: bool = False
 ) -> str:
     """
     Generate a deterministic password based on:
@@ -35,7 +40,7 @@ def generate_password(
         - SITE: The service or website name.
         - MASTER_KEY: Master passphrase.
         - PASS_LEN: Desired length of the generated password.
-        - INC_SP: Boolean of whether special characters are allowed or not.
+        - INC_SPC: Boolean of whether special characters are allowed or not.
 
     Returns:
         A password that is deterministic and may include special characters.
@@ -45,31 +50,29 @@ def generate_password(
     random.seed(generate_randomiser(NAME, SITE, MASTER_KEY, PASS_LEN))
 
     # Step 2A: Generate password without special characters
-    CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
-    PASSWORD = (
-        CHARACTERS[random.randint(36, 61)]
-        + CHARACTERS[random.randint(26, 35)]
-        + CHARACTERS[random.randint(0, 25)]
-    )
+    c_str = UC_STR + D_STR + LC_STR
+    password_list = [
+        c_str[random.randint(36, 61)],
+        c_str[random.randint(26, 35)],
+        c_str[random.randint(0, 25)]
+    ]
     for _ in range(3, PASS_LEN):
-        PASSWORD += CHARACTERS[random.randint(0, 61)]
+        password_list.append(c_str[random.randint(0, 61)])
 
     # Step 2B: Add special characters if True
-    if INC_SP:
-        SP_CHARS = "!@#$"
-        SP_COUNT = random.randint(1, (PASS_LEN - 3) // 4)
-        print(SP_COUNT)
-        for k in range(SP_COUNT):
-            i = random.randint(3, PASS_LEN)
-            j = random.randint(0, 3)
-            # PASSWORD[i] = SP_CHARS[j]
-            print(k, " -> (", i, j, ")")
+    if INC_SPC:
+        spc_str = "!@#$%^&*-+_=?"
+        spc_count = random.randint(1, PASS_LEN // 4)
+        for k in range(spc_count):
+            i = random.randint(3, PASS_LEN - 1)
+            j = random.randint(0, 12)
+            password_list[i] = spc_str[j]
 
     # Step 3: Returns generated password
-    return PASSWORD
+    return ''.join(password_list)
 
 
-print(generate_password("R", "www.R.com", "RMK", 12, True))
-print(generate_password("R", "www.R.com", "RMK", 12, True))
-
-# Convert to list for better comprehensive
+print(generate_password("R", "www.R.com", "RMK", 8, True))
+print(generate_password("R", "www.R.com", "RMK", 8, True))
+print(generate_password("R", "www.R.com", "RMK"))
+print(generate_password("R", "www.R.com", "RMK"))
