@@ -8,7 +8,8 @@ LC_STR = string.ascii_lowercase
 D_STR = string.digits
 
 
-def generate_randomiser(NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int) -> str:
+# Helper Function
+def _generate_randomiser(NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int) -> str:
     """
     Generate a hash string based on:
         - NAME: User's name or identifier.
@@ -30,7 +31,6 @@ def generate_randomiser(NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int) ->
 
     # Step 3: Return trimmed hex string of generated hash
     return hashlib.sha3_256(new_string.encode()).hexdigest()[:PASS_LEN]
-
     """
     Explanation:
         - String of MASTER_KEY + NAME + SITE, in that order becomes the initial seed
@@ -45,6 +45,7 @@ def generate_randomiser(NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int) ->
     """
 
 
+# Sub Function
 def generate_password(
     NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int = 16, INC_SPC: bool = False
 ) -> str:
@@ -61,7 +62,7 @@ def generate_password(
     """
 
     # Step 1: Generate randomiser and seed initiation
-    random.seed(generate_randomiser(NAME, SITE, MASTER_KEY, PASS_LEN))
+    random.seed(_generate_randomiser(NAME, SITE, MASTER_KEY, PASS_LEN))
 
     # Step 2A: Generate password without special characters
     c_str = UC_STR + D_STR + LC_STR
@@ -84,7 +85,6 @@ def generate_password(
 
     # Step 3: Returns generated password
     return "".join(password_list)
-
     """
     Explanation:
     - A seed is generated using generate_randomiser function,
@@ -101,6 +101,16 @@ def generate_password(
       (Lists are used for better performance and allows list comprehension.)
     """
 
+
+# Main Function
+def main():
+    # TODO
+    pass
+
+
+# Entry Point
+if __name__ == "__main__":
+    main()
 
 print(generate_password("R", "www.R.com", "RMK", 8, True))
 print(generate_password("R", "www.R.com", "RMK", 8, True))
