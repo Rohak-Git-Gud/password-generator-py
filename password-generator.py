@@ -77,7 +77,7 @@ def generate_password(
     if INC_SPC:
         spc_str = "!@#$%^&*-+_=?"
         spc_count = random.randint(1, PASS_LEN // 4)
-        for k in range(spc_count):
+        for _ in range(spc_count):
             i = random.randint(3, PASS_LEN - 1)
             j = random.randint(0, 12)
             password_list[i] = spc_str[j]
@@ -95,7 +95,10 @@ def generate_password(
     - Each password will have at least 1 lowercase, digit, uppercase.
     - Remaining characters will be pseudo-randomly generated
       from the alphanumeric ranges - A-Z, a-z, 0-9.
-    - If Special Characters are to be included in the password, a few characters
+    - If Special Characters are to be included in the password,
+      a few characters after the 3 character will be swapped with a special character.
+    - Return the password as a string.
+      (Lists are used for better performance and allows list comprehension.)
     """
 
 
