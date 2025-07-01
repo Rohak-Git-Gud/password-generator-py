@@ -7,7 +7,8 @@ UC_STR = string.ascii_uppercase
 LC_STR = string.ascii_lowercase
 D_STR = string.digits
 
-def generate_randomiser(NAME: str, SITE: str, MASTER_KEY, PASS_LEN: int) -> str:
+
+def generate_randomiser(NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int) -> str:
     """
     Generate a hash string based on:
         - NAME: User's name or identifier.
@@ -29,6 +30,19 @@ def generate_randomiser(NAME: str, SITE: str, MASTER_KEY, PASS_LEN: int) -> str:
 
     # Step 3: Return trimmed hex string of generated hash
     return hashlib.sha3_256(new_string.encode()).hexdigest()[:PASS_LEN]
+
+    """
+    Explanation:
+        - String of MASTER_KEY + NAME + SITE, in that order becomes the initial seed
+          on which python's random function works.
+        - A 3 character string of Uppercase + Digit + Lowercase is created
+          which acts as a salt.
+        - A new string is created such as, salt + SITE + salt + NAME + salt + MASTER_KEY + salt.
+          (The location swapping is deliberate and not a mere overlook)
+        - A SHA3 (256 BIT) hash is created of the new encoded string 
+          and then converted to hexadecimal string format.
+        - Only the beginning PASS_LEN characters of it is returned.
+    """
 
 
 def generate_password(
@@ -54,7 +68,7 @@ def generate_password(
     password_list = [
         c_str[random.randint(36, 61)],
         c_str[random.randint(26, 35)],
-        c_str[random.randint(0, 25)]
+        c_str[random.randint(0, 25)],
     ]
     for _ in range(3, PASS_LEN):
         password_list.append(c_str[random.randint(0, 61)])
@@ -69,7 +83,20 @@ def generate_password(
             password_list[i] = spc_str[j]
 
     # Step 3: Returns generated password
-    return ''.join(password_list)
+    return "".join(password_list)
+
+    """
+    Explanation:
+    - A seed is generated using generate_randomiser function,
+      and NAME, SITE, MASTER_KEY, PASS_LEN as parameters.
+      (This is important for the underlying math.
+      We want the passwords that are generated to be random but deterministic.
+      This is because, we want the same password, each time the exact same parameters are received.)
+    - Each password will have at least 1 lowercase, digit, uppercase.
+    - Remaining characters will be pseudo-randomly generated
+      from the alphanumeric ranges - A-Z, a-z, 0-9.
+    - If Special Characters are to be included in the password, a few characters
+    """
 
 
 print(generate_password("R", "www.R.com", "RMK", 8, True))
