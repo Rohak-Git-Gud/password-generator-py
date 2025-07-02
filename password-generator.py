@@ -1,6 +1,7 @@
 import random
 import hashlib
 import string
+import argparse
 
 # Global Variables for characters' strings
 UC_STR = string.ascii_uppercase
@@ -104,8 +105,21 @@ def generate_password(
 
 # Main Function
 def main():
-    # TODO
-    pass
+
+    parser = argparse.ArgumentParser(
+        prog="password-generator",
+        description="Deterministic Password Generator",
+        epilog="To know more, check out the README.md file or the function-wise explanation",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+
+    parser.add_argument("name", type=str, help="Your Name")
+    parser.add_argument("site", type=str, help="Site Name (Note: \"www.google.com\" is different from \"google.com\")")
+    parser.add_argument("master_key", type=str, help="Your Master Key/Passphrase")
+
+    # TODO SPC options
+
+    args = parser.parse_args()
 
 
 # Entry Point
