@@ -2,6 +2,7 @@ import random
 import hashlib
 import string
 import argparse
+from custom_classes_and_errors import CustomHelpFormatter, check_min_length
 
 # Global Variables for characters' strings
 UC_STR = string.ascii_uppercase
@@ -48,7 +49,7 @@ def _generate_randomiser(NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int) -
 
 # Sub Function
 def generate_password(
-    NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int = 16, INC_SPC: bool = False
+    NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int, INC_SPC: bool, SP_STR: str
 ) -> str:
     """
     Generate a deterministic password based on:
@@ -57,6 +58,7 @@ def generate_password(
         - MASTER_KEY: Master passphrase.
         - PASS_LEN: Desired length of the generated password.
         - INC_SPC: Boolean of whether special characters are allowed or not.
+        - SP_STR: String of allowed special characters.
 
     Returns:
         A password that is deterministic and may include special characters.
@@ -77,12 +79,12 @@ def generate_password(
 
     # Step 2B: Add special characters if True
     if INC_SPC:
-        spc_str = "!@#$%^&*-+_=?"
+        SPC_LEN = len(SP_STR)
         spc_count = random.randint(1, PASS_LEN // 4)
         for _ in range(spc_count):
             i = random.randint(3, PASS_LEN - 1)
-            j = random.randint(0, 12)
-            password_list[i] = spc_str[j]
+            j = random.randint(0, SPC_LEN - 1)
+            password_list[i] = SP_STR[j]
 
     # Step 3: Returns generated password
     return "".join(password_list)
@@ -106,27 +108,61 @@ def generate_password(
 # Main Function
 def main():
 
+    # Argparse Init
     parser = argparse.ArgumentParser(
         prog="password-generator",
-        description="Deterministic Password Generator",
-        epilog="To know more, check out the README.md file or the function-wise explanation",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        description="Deterministic password generator CLI tool.",
+        epilog="To know more, check out the README.md file or the function-wise explanation.",
+        formatter_class=CustomHelpFormatter,
     )
 
-    parser.add_argument("name", type=str, help="Your Name")
-    parser.add_argument("site", type=str, help="Site Name (Note: \"www.google.com\" is different from \"google.com\")")
-    parser.add_argument("master_key", type=str, help="Your Master Key/Passphrase")
+    # Required Arguments
+    parser.add_argument("name", type=str, help="your name")
+    site_help_str = 'site name\nNote: "www.google.com" is different from "google.com"'
+    parser.add_argument("site", type=str, help=site_help_str)
+    master_help_str = "your master key/passphrase\nMake sure it is something you remember but not that obvious to figure out"
+    parser.add_argument("master_key", type=str, help=master_help_str)
 
-    # TODO SPC options
+    # Optional Arguments
+    parser.add_argument(
+        "-l",
+        "--length",
+        metavar="",
+        type=check_min_length,
+        default=12,
+        help="password length\nMin. 8 characters",
+    )
+    parser.add_argument(
+        "--nsp",
+        action="store_false",
+        help="flag to exclude special characters from password generation",
+    )
+    parser.add_argument(
+        "-scs",
+        "--specialC",
+        metavar="",
+        type=str,
+        default="!@#$&*-+_.?",
+        help="use it to change the acceptable special characters used\nNot recommended, unless you know what you're doing",
+    )
 
+    # Execute Parser
     args = parser.parse_args()
+
+    # Generate and print password
+    print(
+        "Password:",
+        generate_password(
+            args.name, args.site, args.master_key, args.length, args.nsp, args.specialC
+        ),
+    )
 
 
 # Entry Point
 if __name__ == "__main__":
     main()
 
-print(generate_password("R", "www.R.com", "RMK", 8, True))
-print(generate_password("R", "www.R.com", "RMK", 8, True))
-print(generate_password("R", "www.R.com", "RMK"))
-print(generate_password("R", "www.R.com", "RMK"))
+# print(generate_password("R", "www.R.com", "RMK", 8, True))
+# print(generate_password("R", "www.R.com", "RMK", 8, True))
+# print(generate_password("R", "www.R.com", "RMK"))
+# print(generate_password("R", "www.R.com", "RMK"))
