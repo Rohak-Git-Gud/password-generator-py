@@ -14,10 +14,8 @@ D_STR = string.digits
 def _generate_randomiser(NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int) -> str:
     """
     Generate a hash string based on:
-        - NAME: User's name or identifier.
-        - SITE: The service or website name.
-        - MASTER_KEY: Master passphrase.
-        - PASS_LEN: Desired length of the generated password.
+        - NAME, SITE, MASTER_KEY, PASS_LEN:
+          derived from NAME, SITE, MASTER_KEY, PASS_LEN of generate_password function, respectively.
 
     Returns:
         A randomiser that is deterministic of fixed length.
@@ -33,18 +31,6 @@ def _generate_randomiser(NAME: str, SITE: str, MASTER_KEY: str, PASS_LEN: int) -
 
     # Step 3: Return trimmed hex string of generated hash
     return hashlib.sha3_256(new_string.encode()).hexdigest()[:PASS_LEN]
-    """
-    Explanation:
-        - String of MASTER_KEY + NAME + SITE, in that order becomes the initial seed
-          on which python's random function works.
-        - A 3 character string of Uppercase + Digit + Lowercase is created
-          which acts as a salt.
-        - A new string is created such as, salt + SITE + salt + NAME + salt + MASTER_KEY + salt.
-          (The location swapping is deliberate and not a mere overlook)
-        - A SHA3 (256 BIT) hash is created of the new encoded string 
-          and then converted to hexadecimal string format.
-        - Only the beginning PASS_LEN characters of it is returned.
-    """
 
 
 # Sub Function
@@ -53,18 +39,14 @@ def generate_password(
 ) -> str:
     """
     Generate a deterministic password based on:
-        - NAME: User's name or identifier.
-        - SITE: The service or website name.
-        - MASTER_KEY: Master passphrase.
-        - PASS_LEN: Desired length of the generated password.
-        - INC_SPC: Boolean of whether special characters are allowed or not.
-        - SP_STR: String of allowed special characters.
+        - NAME, SITE, MASTER_KEY, PASS_LEN, INC_SPC, SP_STR:
+          maps to name, site, master_key, length, nsp, specialC of main function.
 
     Returns:
         A password that is deterministic and may include special characters.
     """
 
-    # Step 1: Generate randomiser and seed initiation
+    # Step 1: Generate randomiser and seed initiation using _generate_randomiser function
     random.seed(_generate_randomiser(NAME, SITE, MASTER_KEY, PASS_LEN))
 
     # Step 2A: Generate password without special characters
@@ -80,7 +62,7 @@ def generate_password(
     # Step 2B: Add special characters if True
     if INC_SPC:
         SPC_LEN = len(SP_STR)
-        spc_count = random.randint(1, PASS_LEN // 4)
+        spc_count = random.randint(1, 2 * (PASS_LEN // 8))
         for _ in range(spc_count):
             i = random.randint(3, PASS_LEN - 1)
             j = random.randint(0, SPC_LEN - 1)
@@ -88,27 +70,22 @@ def generate_password(
 
     # Step 3: Returns generated password
     return "".join(password_list)
-    """
-    Explanation:
-    - A seed is generated using generate_randomiser function,
-      and NAME, SITE, MASTER_KEY, PASS_LEN as parameters.
-      (This is important for the underlying math.
-      We want the passwords that are generated to be random but deterministic.
-      This is because, we want the same password, each time the exact same parameters are received.)
-    - Each password will have at least 1 lowercase, digit, uppercase.
-    - Remaining characters will be pseudo-randomly generated
-      from the alphanumeric ranges - A-Z, a-z, 0-9.
-    - If Special Characters are to be included in the password,
-      a few characters after the 3 character will be swapped with a special character.
-    - Return the password as a string.
-      (Lists are used for better performance and allows list comprehension.)
-    """
 
 
 # Main Function
 def main():
+    """
+    Main executable functions that handles CLI and parameters' extraction.
+    CLI parameters:
+        - name: User's name or identifier.
+        - site: The service or website name.
+        - master_key: Master passphrase.
+        - length (l): Desired length of the generated password.
+        - nsp: Boolean of whether special characters are allowed or not.
+        - specialC (scs): String of allowed special characters.
+    """
 
-    # Argparse Init
+    # Step 1: Initializing argparse's argument parser
     parser = argparse.ArgumentParser(
         prog="password-generator",
         description="Deterministic password generator CLI tool.",
@@ -116,14 +93,14 @@ def main():
         formatter_class=CustomHelpFormatter,
     )
 
-    # Required Arguments
+    # Step 2A: Adding required arguments to the parser
     parser.add_argument("name", type=str, help="your name")
     site_help_str = 'site name\nNote: "www.google.com" is different from "google.com"'
     parser.add_argument("site", type=str, help=site_help_str)
     master_help_str = "your master key/passphrase\nMake sure it is something you remember but not that obvious to figure out"
     parser.add_argument("master_key", type=str, help=master_help_str)
 
-    # Optional Arguments
+    # Step 2B: Adding optional arguments to the parser
     parser.add_argument(
         "-l",
         "--length",
@@ -146,10 +123,10 @@ def main():
         help="use it to change the acceptable special characters used\nNot recommended, unless you know what you're doing",
     )
 
-    # Execute Parser
+    # Step 3: Execute parser and store values in dictionary called args
     args = parser.parse_args()
 
-    # Generate and print password
+    # Step 4: Print password generated from generate_password
     print(
         "Password:",
         generate_password(
@@ -161,8 +138,3 @@ def main():
 # Entry Point
 if __name__ == "__main__":
     main()
-
-# print(generate_password("R", "www.R.com", "RMK", 8, True))
-# print(generate_password("R", "www.R.com", "RMK", 8, True))
-# print(generate_password("R", "www.R.com", "RMK"))
-# print(generate_password("R", "www.R.com", "RMK"))
