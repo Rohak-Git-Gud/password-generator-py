@@ -9,6 +9,7 @@
 - [Features](#features)
 - [Installation and Usage](#installation-and-usage)
 - [Options](#options)
+- [Improvements](#improvements)
 - [Ezplanation](#explanation)
 - [Final Thoughts](#final-thoughts)
 
@@ -40,12 +41,35 @@ Ensure you have **Python 3.11+** recommended. (Tool is developed using Py 3.13).
 
 ## Options
 
+### Required Arguments
+
+| Option | Description |
+|--------|-------------|
+| `name` | your name or identifier |
+| `site` | service or website name<br>Note: "www.github.com" is different from "github.com" |
+| `master_key` | your master key/passphrase<br>Make sure it is something you remember but not that obvious to figure out |
+
+### Optional Arguments
+
 | Option | Description |
 |--------|-------------|
 | `-h`, `--help` | show this help message and exit |
 | `-l`, `--length` | password length<br>Min. 8 characters (default: 12) |
 | `--nsp` | flag to exclude special characters from password generation (default: True) |
 | `-scs`, `--specialC` | use it to change the acceptable special characters used<br>Not recommended, unless you know what you're doing (default: !@#$&*-+_.?) |
+
+---
+
+## Improvements
+
+- **Batch Generation:** Option to generate multiple passwords at once.
+ (having same `name` and `master_key`)
+  - Can be done by using looping until exit.
+  - Can be done by having `site` and other optional arguments being fetched from a txt/json/csv file.
+- **Making `name` Optional:** By making `master_key` include both name as well as master key,
+ we can reduce the number of arguments, thus decreasing complexity of usage.
+- **Better Master Key Handling:** Option to fetch `master_key` from systems' environment variables.
+ (keeping all OSs in mind for continued cross platform usage)
 
 ---
 
@@ -77,4 +101,17 @@ Ensure you have **Python 3.11+** recommended. (Tool is developed using Py 3.13).
 ---
 
 ## Final Thoughts
+
+- Thank you for exploring this project. I hope you found it useful and insightful. 
+The aim of this project was for me to create something without any handholding, 
+and something that I actually would use in my day to day life, something practical.
+  - If you have any feedback, suggestions, improvements or if you encounter any issues, 
+feel free to open an issue or submit a pull request. Although, collaboration and contributions are always welcome, 
+don't just update this README for the sake of putting an open-source contribution onto your resume.
+
+- Secondly, This project aims to showcase and encourage good security practices, 
+with the hope of making them a more natural part of everyday routine. Hence, take your own security serioursly.
+  - Make sure your terminal/command prompt isn't storing history of commands you used to generate passwords. 
+  (Try restarting your terminal/command prompt and press ⇡ to verify that your older commands don't show up)
+  - Make sure the combination used to generate your password isn't accessible to a potential bad actor.
 

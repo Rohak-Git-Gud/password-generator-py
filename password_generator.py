@@ -94,8 +94,10 @@ def main():
     )
 
     # Step 2A: Adding required arguments to the parser
-    parser.add_argument("name", type=str, help="your name")
-    site_help_str = 'site name\nNote: "www.google.com" is different from "google.com"'
+    parser.add_argument("name", type=str, help="your name or identifier")
+    site_help_str = (
+        'service or website name\nNote: "www.google.com" is different from "google.com"'
+    )
     parser.add_argument("site", type=str, help=site_help_str)
     master_help_str = "your master key/passphrase\nMake sure it is something you remember but not that obvious to figure out"
     parser.add_argument("master_key", type=str, help=master_help_str)
@@ -128,7 +130,11 @@ def main():
 
     # Step 4: Print password generated from generate_password
     print(
-        "Password:",
+        "Hello,",
+        args.name,
+        "Password for",
+        args.site,
+        "is:",
         generate_password(
             args.name, args.site, args.master_key, args.length, args.nsp, args.specialC
         ),
