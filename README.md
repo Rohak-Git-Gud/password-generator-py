@@ -115,3 +115,4 @@ with the hope of making them a more natural part of everyday routine. Hence, tak
   (Try restarting your terminal/command prompt and press ⇡ to verify that your older commands don't show up)
   - Make sure the combination used to generate your password isn't accessible to a potential bad actor.
 
+---
