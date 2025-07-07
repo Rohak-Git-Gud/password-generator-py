@@ -35,7 +35,8 @@ Ensure you have **Python 3.11+** recommended. (Tool is developed using Py 3.13).
   ```cd password-generator-py```
 - Since, no additional packages are required, you can skip venv creation if you don't want it. (Though recommended)
 - Execute password_generator to read manual:
-  ```python password_generator.py -h```
+  ```python password_generator.py -h``` (for Windows) or 
+  ```python3 password_generator.py -h``` (for Linux or macOS)
 
 ---
 
