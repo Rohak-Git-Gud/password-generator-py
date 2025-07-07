@@ -9,7 +9,7 @@
 - [Features](#features)
 - [Installation and Usage](#installation-and-usage)
 - [Options](#options)
-- [Improvements](#improvements)
+- [Future Scope of Improvement](#future-scope-of-improvement)
 - [Explanation](#explanation)
 - [Final Thoughts](#final-thoughts)
 
@@ -60,7 +60,7 @@ Ensure you have **Python 3.11+** recommended. (Tool is developed using Py 3.13).
 
 ---
 
-## Improvements
+## Future Scope of Improvement
 
 - **Batch Generation:** Option to generate multiple passwords at once.
  (having same `name` and `master_key`)
