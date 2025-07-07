@@ -10,7 +10,7 @@
 - [Installation and Usage](#installation-and-usage)
 - [Options](#options)
 - [Improvements](#improvements)
-- [Ezplanation](#explanation)
+- [Explanation](#explanation)
 - [Final Thoughts](#final-thoughts)
 
 ---
