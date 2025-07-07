@@ -30,9 +30,9 @@
 Ensure you have **Python 3.11+** recommended. (Tool is developed using Py 3.13). All packages are included within the standard python library. No additional packages are required to be installed.
 
 - Clone the repository and run locally:
-  ```git clone __repo__```
+  ```git clone https://github.com/Rohak-Git-Gud/password-generator-py.git```
 - Navigate into repo:
-  ```cd __repo__```
+  ```cd password-generator-py```
 - Since, no additional packages are required, you can skip venv creation if you don't want it. (Though recommended)
 - Execute password_generator to read manual:
   ```python password_generator.py -h```
