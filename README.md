@@ -115,4 +115,7 @@ with the hope of making them a more natural part of everyday routine. Hence, tak
   (Try restarting your terminal/command prompt and press ⇡ to verify that your older commands don't show up)
   - Make sure the combination used to generate your password isn't accessible to a potential bad actor.
 
+- Finally, I want to thank **`Maarten Billemont (Lhunath)`** for inspiring me to create this project. His work on **`Spectre (https://spectre.app/)`** piqued my curiosity to recreate it with my logic and thought process, using the tools I'm comfortable with.
+  - I encourage others to look around and find open-source projects that intrigue you. Try to recreate it on your own terms; don't blatantly clone or rip-off someone's repo, acknowledge your source of inspiration.
+
 ---
