@@ -40,6 +40,20 @@ Ensure you have **Python 3.11+** recommended. (Tool is developed using Py 3.13).
 
 ---
 
+## Demonstration
+
+**Manual**
+![Intro](./Demo_Images/Intro.png)
+
+**Usage Showcase**
+![Usage Combination](./Demo_Images/Usage_Combinations.png)
+
+**Error Handling**
+![Error Example 1](./Demo_Images/Error_Example_1.png)
+![Error Example 2](./Demo_Images/Error_Example_2.png)
+
+---
+
 ## Options
 
 ### Required Arguments
