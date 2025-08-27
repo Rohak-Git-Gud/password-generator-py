@@ -63,13 +63,14 @@ Ensure you have **Python 3.11+** recommended. (Tool is developed using Py 3.13).
 
 ## Future Scope of Improvement
 
-- **Batch Generation:** Option to generate multiple passwords at once.
+- [x] **Demo Showcase:** Complete current project demo with some usage examples and error handling.
+- [ ] **Batch Generation:** Option to generate multiple passwords at once.
  (having same `name` and `master_key`)
   - Can be done by using looping until exit.
   - Can be done by having `site` and other optional arguments being fetched from a txt/json/csv file.
-- **Making `name` Optional:** By making `master_key` include both name as well as master key,
+- [ ] **Making `name` Optional:** By making `master_key` include both name as well as master key,
  we can reduce the number of arguments, thus decreasing complexity of usage.
-- **Better Master Key Handling:** Option to fetch `master_key` from systems' environment variables.
+- [ ] **Better Master Key Handling:** Option to fetch `master_key` from systems' environment variables.
  (keeping all OSs in mind for continued cross platform usage)
 
 ---
