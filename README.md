@@ -79,7 +79,7 @@ Ensure you have **Python 3.11+** recommended. (Tool is developed using Py 3.13).
 
 - [x] **Demo Showcase:** Complete current project demo with some usage examples and error handling.
 - [ ] **Refactoring:** Implement design principles and Follow best programming practices.
-- [ ] **Non Tech Inclusivity Provision:** For in case [someone like this](https://www.reddit.com/r/github/comments/1at9br4/i_am_new_to_github_and_i_have_lots_to_say/) happens to ponder.
+- [ ] **Non Tech Inclusivity Provision:** For in case [someone like them](https://www.reddit.com/r/github/comments/1at9br4/i_am_new_to_github_and_i_have_lots_to_say/) happens to ponder.
   - It can be an executable (*EXE*).
   - It can be an app (*GUI*).
   - It can be an endpoint (*API Server*).
