@@ -1,21 +1,27 @@
-import argparse
+from argparse import (
+    RawTextHelpFormatter,
+    ArgumentDefaultsHelpFormatter,
+    ArgumentTypeError,
+)
 
 
 class CustomHelpFormatter(
-    argparse.RawTextHelpFormatter,
-    argparse.ArgumentDefaultsHelpFormatter,
+    RawTextHelpFormatter,
+    ArgumentDefaultsHelpFormatter,
 ):
-    """Custom class to fuse RawTextHelpFormatter and ArgumentDefaultsHelpFormatter"""
-    
+    """Custom class to fuse RawTextHelpFormatter and ArgumentDefaultsHelpFormatter classes."""
+
     pass
 
 
-def check_min_length(length: int) -> int:
-    """Function to handle minimum password length error"""
+def check_min_length(check_value: str) -> int:
+    """Function to handle minimum password length error."""
 
-    l = int(length)
-    if l < 8:
-        raise argparse.ArgumentTypeError(
-            "Password length should be at least 8 characters."
-        )
-    return l
+    try:
+        return_length = int(check_value)
+    except ValueError:
+        raise ArgumentTypeError(check_value, "is not a valid integer.")
+    
+    if return_length < 8:
+        raise ArgumentTypeError("Password length should be at least 8 characters.")
+    return return_length

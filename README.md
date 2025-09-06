@@ -9,8 +9,8 @@
 - [Features](#features)
 - [Installation and Usage](#installation-and-usage)
 - [Options](#options)
-- [Future Scope of Improvement](#future-scope-of-improvement)
 - [Explanation](#explanation)
+- [Future Scope of Improvement](#future-scope-of-improvement)
 - [Final Thoughts](#final-thoughts)
 
 ---
@@ -19,9 +19,9 @@
 
 - **Easy-to-use CLI**: Simple commands with clear options and arguments.
 - **Cross-platform**: Works on Linux, macOS, and Windows.
-- **Deterministic**: Passwords stays the same if the input parameters are the same.
+- **Deterministic**: Passwords stays the same until the input parameters change.
 - **Variable Usage**: You can customize your password length, allowed special characters or whether to even have special characters in the first place.
-- **No Storage, No Logging, No Caching**: Based on Cybersecurity ZTM (Zero Trust Model), I've made sure no password is stored anywhere.
+- **No Storage, No Logging, No Caching**: Based on Cybersecurity ZTM (Zero Trust Model), it is ensured that no password is stored anywhere.
 
 ---
 
@@ -71,26 +71,7 @@ Ensure you have **Python 3.11+** recommended. (Tool is developed using Py 3.13).
 | `-h`, `--help` | show this help message and exit |
 | `-l`, `--length` | password length<br>Min. 8 characters (default: 12) |
 | `--nsp` | flag to exclude special characters from password generation (default: True) |
-| `-scs`, `--specialC` | use it to change the acceptable special characters used<br>Not recommended, unless you know what you're doing (default: !@#$&*-+_.?) |
-
----
-
-## Future Scope of Improvement
-
-- [x] **Demo Showcase:** Complete current project demo with some usage examples and error handling.
-- [ ] **Refactoring:** Implement design principles and Follow best programming practices.
-- [ ] **Non Tech Inclusivity Provision:** For in case [someone like them](https://www.reddit.com/r/github/comments/1at9br4/i_am_new_to_github_and_i_have_lots_to_say/) happens to ponder.
-  - It can be an executable (*EXE*).
-  - It can be an app (*GUI*).
-  - It can be an endpoint (*API Server*).
-- [ ] **Batch Generation:** Option to generate multiple passwords at once.
- (having same `name` and `master_key`)
-  - Can be done by using looping until exit.
-  - Can be done by having `site` and other optional arguments being fetched from a txt/json/csv file.
-- [ ] **Making `name` Optional:** By making `master_key` include both name as well as master key,
- we can reduce the number of arguments, thus decreasing complexity of usage.
-- [ ] **Better Master Key Handling:** Option to fetch `master_key` from systems' environment variables.
- (keeping all OSs in mind for continued cross platform usage)
+| `-scs`, `--specialC` | use it to change the acceptable special characters used<br>Not recommended, unless you know what you're doing (default: !@#$%^*-+_=?) |
 
 ---
 
@@ -121,6 +102,25 @@ Ensure you have **Python 3.11+** recommended. (Tool is developed using Py 3.13).
 
 ---
 
+## Future Scope of Improvement
+
+- [x] **Demo Showcase:** Complete current project demo with some usage examples and error handling.
+- [x] **Refactoring:** Implement design principles and Follow best programming practices.
+- [ ] **Non Tech Inclusivity Provision:** For in case [someone like them](https://www.reddit.com/r/github/comments/1at9br4/i_am_new_to_github_and_i_have_lots_to_say/) happens to ponder here.
+  - It can be an executable (*EXE*).
+  - It can be an app (*GUI*).
+  - It can be an endpoint (*API Server*).
+- [ ] **Batch Generation:** Option to generate multiple passwords at once.
+ (having same `name` and `master_key`)
+  - Can be done by using looping until exit.
+  - Can be done by having `site` and other optional arguments being fetched from a txt/json/csv file.
+- [ ] **Making `name` Optional:** By making `master_key` include both name as well as master key,
+ we can reduce the number of arguments, thus decreasing complexity of usage.
+- [ ] **Better Master Key Handling:** Option to fetch `master_key` from systems' environment variables.
+ (keeping all OSs in mind for continued cross platform usage)
+
+---
+
 ## Final Thoughts
 
 - Thank you for exploring this project. I hope you found it useful and insightful. 
@@ -136,7 +136,7 @@ with the hope of making them a more natural part of everyday routine. Hence, tak
   (Try restarting your terminal/command prompt and press ⇡ to verify that your older commands don't show up)
   - Make sure the combination used to generate your password isn't accessible to a potential bad actor.
 
-- Finally, I want to thank **`Maarten Billemont (Lhunath)`** for inspiring me to create this project. His work on **`Spectre (https://spectre.app/)`** piqued my curiosity to recreate it with my logic and thought process, using the tools I'm comfortable with.
+- Finally, I would like to thank **`Maarten Billemont (Lhunath)`** for inspiring me to create this project. His work on **`Spectre (https://spectre.app/)`** piqued my curiosity to recreate it with my logic and thought process, using the tools I'm comfortable with.
   - I encourage others to look around and find open-source projects that intrigue you. Try to recreate it on your own terms; don't blatantly clone or rip-off someone's repo, acknowledge your source of inspiration.
 
 ---
