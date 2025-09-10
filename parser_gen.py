@@ -3,7 +3,7 @@ from custom_classes_and_errors import CustomHelpFormatter, check_min_length
 
 
 # Argument Parser Builder Function
-def parser_creator():
+def parser_creator() -> ArgumentParser:
     """
     Function that handles CLI and parameters' extraction.
 

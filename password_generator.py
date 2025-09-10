@@ -17,7 +17,7 @@ def main():
     args = parser.parse_args()
 
     # Creating dictionary to minimize function parameter count.
-    _input_params = {
+    _param_dict = {
         "NAME": args.name,
         "SITE": args.site,
         "MASTER_KEY": args.master_key,
@@ -28,15 +28,13 @@ def main():
     }
 
     # Calling seed_creator to generate SEED and storing it.
-    _input_params["SEED"] = seed_creator(_input_params)
+    _param_dict["SEED"] = seed_creator(_param_dict)
 
-    # Resource delocation and allocation for better performance.
-    del _input_params["NAME"]
-    del _input_params["SITE"]
-    del _input_params["MASTER_KEY"]
+    # Resource delocation and delayed allocation for better performance.
+    del _param_dict["NAME"], _param_dict["SITE"], _param_dict["MASTER_KEY"]
 
-    _input_params["INC_SPC"] = args.nsp
-    _input_params["SP_STR"] = args.specialC
+    _param_dict["INC_SPC"] = args.nsp
+    _param_dict["SP_STR"] = args.specialC
 
     # Calling pass_creator and printing generated password.
     print(
@@ -45,7 +43,7 @@ def main():
         "\nPassword for",
         args.site,
         "is:",
-        pass_creator(_input_params),
+        pass_creator(_param_dict),
     )
 
 
